@@ -1,10 +1,14 @@
 package com.project;
 
+import java.util.stream.Stream;
+
 public class LambdaExample {
 
     public static void main(String[] args) {
+        long lengthyColors = Stream.of("Red", "Green", "Blue")
+                .filter(c -> c.length() > 3)
+                .count();
 
-        Runnable runnable = () -> System.out.println("Hello World!");
-        runnable.run();
+        System.out.println("lengthyColors = " + lengthyColors);
     }
 }
