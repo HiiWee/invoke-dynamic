@@ -9,7 +9,7 @@ public class LambdaTest {
     public int run() {
          Stream.of("Red", "Green", "Blue")
                 .forEach(c -> {
-                    this.value = 5;
+//                    this.value = 5;
                 });
 
          return value;
