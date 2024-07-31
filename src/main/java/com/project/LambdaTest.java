@@ -6,12 +6,11 @@ public class LambdaTest {
 
     private int value = 100;
 
-    public int run() {
-         Stream.of("Red", "Green", "Blue")
-                .forEach(c -> {
-//                    this.value = 5;
+    public void run() {
+        Stream.of("Red", "Green", "Blue")
+                .anyMatch(color -> {
+                    this.value = 10;
+                    return color.equals("Green");
                 });
-
-         return value;
     }
 }

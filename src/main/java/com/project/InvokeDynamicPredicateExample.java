@@ -39,11 +39,11 @@ public class InvokeDynamicPredicateExample {
         Predicate<List<String>> predicate = (Predicate<List<String>>) callSite.getTarget().invoke();
 
         // 테스트
-//        List<String> testList1 = List.of("A", "B", "C");
-//        List<String> testList2 = List.of("A", "B", "C", "D", "E");
-//
-//        System.out.println("testList1 (size 3): " + predicate.test(testList1));
-//        System.out.println("testList2 (size 5): " + predicate.test(testList2));
+        List<String> testList1 = List.of("A", "B", "C");
+        List<String> testList2 = List.of("A", "B", "C", "D", "E");
+
+        System.out.println("testList1 (size 3): " + predicate.test(testList1));
+        System.out.println("testList2 (size 5): " + predicate.test(testList2));
     }
 
     // 람다 표현식의 실제 구현
