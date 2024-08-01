@@ -1,9 +1,9 @@
-package com.project;
+package com.project.example;
 
 public class LambdaExample {
 
     public static void main(String[] args) {
-        LambdaTest lambdaTest = new LambdaTest();
-        lambdaTest.run();
+        LambdaPredicateTest lambdaPredicateTest = new LambdaPredicateTest();
+//        lambdaPredicateTest.run();
     }
 }
