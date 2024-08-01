@@ -1,4 +1,4 @@
-package com.project;
+package com.project.example;
 
 import java.lang.invoke.CallSite;
 import java.lang.invoke.LambdaMetafactory;
@@ -9,7 +9,12 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class InvokeDynamicPredicateExample {
+
+    private static CallSite callSite;
+
     public static void main(String[] args) throws Throwable {
+
+// 1. 부트스트랩 정의 과정 (컴파일 시점)
         // 람다 표현식에 해당하는 메서드 핸들 생성
         MethodHandles.Lookup lookup = MethodHandles.lookup();
         MethodType predicateType = MethodType.methodType(boolean.class, List.class);
@@ -25,15 +30,18 @@ public class InvokeDynamicPredicateExample {
         );
         MethodHandle bootstrapMethod = lookup.findStatic(LambdaMetafactory.class, "metafactory", bootstrapMethodType);
 
+// 2. JVM이 invokedynamic을 만났을때 (런타임 시점)
         // invokedynamic 호출 사이트 생성
-        CallSite callSite = (CallSite) bootstrapMethod.invoke(
-                lookup,
-                "test",
-                MethodType.methodType(Predicate.class),
-                MethodType.methodType(boolean.class, Object.class),
-                target,
-                MethodType.methodType(boolean.class, List.class)
-        );
+        if (callSite == null) {
+            callSite = (CallSite) bootstrapMethod.invoke(
+                    lookup,
+                    "test",
+                    MethodType.methodType(Predicate.class),
+                    MethodType.methodType(boolean.class, Object.class),
+                    target,
+                    MethodType.methodType(boolean.class, List.class)
+            );
+        }
 
         // 생성된 Predicate 인스턴스 획득
         Predicate<List<String>> predicate = (Predicate<List<String>>) callSite.getTarget().invoke();
